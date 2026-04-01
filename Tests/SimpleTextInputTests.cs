@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Playwright;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,14 @@ namespace QaPracticeTest.Tests
     [TestFixture]
     public class SimpleTextInputTests : PageTest
     {
+        public class InvalidInputTestCase
+        {
+            public string Input { get; set; }
+            public string ExpectedError { get; set; }
+
+            public override string ToString() => $"Input: '{Input}' | Expected: '{ExpectedError}'";
+        }
+
         [Test]
         public async Task InputIsVisibleAndEnabled()
         {
@@ -42,6 +51,34 @@ namespace QaPracticeTest.Tests
             var page = new Pages.SimpleTextInputPage(Page);
             await page.GoToAsync();
             Assert.That(await page.IsInputRequired(), Is.True, "Expected the input to be required.");
+        }
+
+        private static IEnumerable<InvalidInputTestCase> InvalidInputWithExpectedError()
+        {
+            yield return new InvalidInputTestCase
+            {
+                Input = "A",
+                ExpectedError = "Please enter 2 or more characters"
+            }; // Too short
+            yield return new InvalidInputTestCase
+            {
+                Input = "x".PadLeft(26, 'x'),
+                ExpectedError = "Please enter no more than 25 characters"
+            }; // Too long
+            yield return new InvalidInputTestCase
+            {
+                Input = "Invalid!@#",
+                ExpectedError = "Enter a valid string consisting of letters, numbers, underscores or hyphens."
+            }; // Contains disallowed characters
+        }
+
+        [TestCaseSource(nameof(InvalidInputWithExpectedError))]
+        public async Task InvalidTextIsRejected(InvalidInputTestCase testCase)
+        {
+            var page = new Pages.SimpleTextInputPage(Page);
+            await page.GoToAsync();
+            await page.SubmitText(testCase.Input);
+            Assert.That(await page.GetErrorMessage(), Is.EqualTo(testCase.ExpectedError));
         }
     }
 }

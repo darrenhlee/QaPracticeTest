@@ -14,12 +14,14 @@ namespace QaPracticeTest.Pages
         private readonly IPage _page;
         private readonly ILocator _input;
         private readonly ILocator _result;
+        private readonly ILocator _errorMessage;
 
         internal SimpleTextInputPage(IPage page)
         {
             _page = page ?? throw new ArgumentNullException(nameof(page));
             _input = _page.GetByPlaceholder("Submit me");
             _result = _page.Locator("id=result-text");
+            _errorMessage = _page.Locator("id=error_1_id_text_string");
         }
 
         internal async Task GoToAsync() => await _page.GotoAsync("https://www.qa-practice.com/elements/input/simple");
@@ -31,6 +33,8 @@ namespace QaPracticeTest.Pages
         }
 
         internal async Task<string> GetResult() => await _result.InnerTextAsync();
+
+        internal async Task<string> GetErrorMessage() => await _errorMessage.InnerTextAsync();
 
         internal async Task<bool> IsInputVisible() => await _input.IsVisibleAsync();
 
