@@ -69,6 +69,11 @@ namespace QaPracticeTest.Tests
             {
                 Input = "Invalid!@#",
                 ExpectedError = "Enter a valid string consisting of letters, numbers, underscores or hyphens."
+            }; // Contains allowed and disallowed characters
+            yield return new InvalidInputTestCase
+            {
+                Input = "Ĩňvąŀīď",
+                ExpectedError = "Enter a valid string consisting of letters, numbers, underscores or hyphens."
             }; // Contains disallowed characters
         }
 
