@@ -1,7 +1,6 @@
 ﻿using Microsoft.Playwright;
-using QaPracticeTest.Pages.Inputs;
 
-namespace QaPracticeTest.Pages
+namespace QaPracticeTest.Pages.Inputs
 {
     internal class SimpleTextInputPage : InputPage
     {
@@ -9,8 +8,6 @@ namespace QaPracticeTest.Pages
             : base(
                 page,
                 "https://www.qa-practice.com/elements/input/simple",
-                page.GetByPlaceholder("Submit me"),
-                page.Locator("id=result-text"),
                 page.Locator("id=error_1_id_text_string"))
         {
         }

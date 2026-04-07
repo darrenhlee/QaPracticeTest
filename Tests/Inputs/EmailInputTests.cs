@@ -7,7 +7,7 @@
         [SetUp]
         public void SetUp()
         {
-            InputPage = new Pages.EmailTextInputPage(Page);
+            InputPage = new Pages.Inputs.EmailTextInputPage(Page);
         }
 
         private static IEnumerable<string> ValidInputTestCases()

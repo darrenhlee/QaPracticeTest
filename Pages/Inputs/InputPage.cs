@@ -8,10 +8,10 @@ namespace QaPracticeTest.Pages.Inputs
         protected readonly ILocator _result;
         protected readonly ILocator _errorMessage;
 
-        public InputPage(IPage page, string url, ILocator input, ILocator result, ILocator errorMessage) : base(page, url)
+        public InputPage(IPage page, string url, ILocator errorMessage) : base(page, url)
         {
-            _input = input ?? throw new ArgumentNullException(nameof(input));
-            _result = result ?? throw new ArgumentNullException(nameof(result));
+            _input = page.GetByPlaceholder("Submit me");
+            _result = page.Locator("id=result-text");
             _errorMessage = errorMessage ?? throw new ArgumentNullException(nameof(errorMessage));
         }   
 
