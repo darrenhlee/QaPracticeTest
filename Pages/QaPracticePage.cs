@@ -2,7 +2,7 @@
 
 namespace QaPracticeTest.Pages
 {
-    abstract internal class QaPracticePage
+    abstract public class QaPracticePage : IQaPracticePage
     {
         protected readonly IPage _page;
         protected readonly string _url;
@@ -13,6 +13,6 @@ namespace QaPracticeTest.Pages
             _url = url ?? throw new ArgumentNullException(nameof(url));
         }
 
-        internal async Task GoToAsync() => await _page.GotoAsync(_url);
+        public async Task GoToAsync() => await _page.GotoAsync(_url);
     }
 }

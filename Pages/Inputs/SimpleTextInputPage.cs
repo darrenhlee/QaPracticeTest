@@ -7,7 +7,7 @@ namespace QaPracticeTest.Pages
     {
         internal SimpleTextInputPage(IPage page) 
             : base(
-                page ?? throw new ArgumentNullException(nameof(page)),
+                page,
                 "https://www.qa-practice.com/elements/input/simple",
                 page.GetByPlaceholder("Submit me"),
                 page.Locator("id=result-text"),
