@@ -4,12 +4,12 @@ namespace QaPracticeTest.Tests.Buttons
 {
     [Parallelizable(ParallelScope.Self)]
     [TestFixture]
-    public class SimpleButtonTests : ButtonTestBase
+    public class LooksLikeABuittonTests : ButtonTestBase
     {
         [SetUp]
         public void SetUp()
         {
-            ButtonPage = new SimpleButtonPage(Page);
+            ButtonPage = new LooksLikeAButtonPage(Page);
             ExpectedButtonText = "Click";
         }
     }
