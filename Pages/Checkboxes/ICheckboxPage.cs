@@ -6,6 +6,7 @@ namespace QaPracticeTest.Pages.Checkboxes
     {
         public ILocator SubmitButton { get; }
         public ILocator Result { get; }
+        public ILocator Checkboxes { get; }
         Task ClickButton();
     }
 }
