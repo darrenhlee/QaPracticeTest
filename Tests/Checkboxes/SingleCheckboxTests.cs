@@ -21,5 +21,12 @@ namespace QaPracticeTest.Tests.Checkboxes
             await CheckboxPage.GoToAsync();
             await Expect(CheckboxPage.Checkboxes).ToHaveCountAsync(1);
         }
+
+        [Test]
+        public async Task LabelOfCheckboxIsCorrect()
+        {
+            await CheckboxPage.GoToAsync();
+            await Expect(CheckboxPage.Label).ToHaveTextAsync("Select me or not");
+        }
     }
 }
