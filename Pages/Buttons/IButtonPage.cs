@@ -7,9 +7,5 @@ namespace QaPracticeTest.Pages.Buttons
         public ILocator Button { get; }
         public ILocator Result { get; }
         Task ClickButton();
-        Task<string> GetResult();
-        Task<bool> IsButtonVisible();
-        Task<bool> IsButtonEnabled();
-        Task<string?> GetButtonLabel();
     }
 }

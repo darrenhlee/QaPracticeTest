@@ -19,13 +19,5 @@ namespace QaPracticeTest.Pages.Buttons
         }
 
         public async Task ClickButton() => await Button.ClickAsync();
-
-        public async Task<string> GetResult() => await Result.InnerTextAsync();
-
-        public async Task<bool> IsButtonVisible() => await Button.IsVisibleAsync();
-
-        public async Task<bool> IsButtonEnabled() => !await Button.IsDisabledAsync();
-
-        public async Task<string?> GetButtonLabel() => (string?)(await Button.GetAttributeAsync("value") ?? await Button.InnerTextAsync());
     }
 }
