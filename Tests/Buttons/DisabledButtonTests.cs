@@ -15,10 +15,16 @@ namespace QaPracticeTest.Tests.Buttons
         }
 
         [Test]
-        public async Task UserCanEnableAndDisableTheButton()
+        public async Task ButtonIsDisabledByDefault()
         {
             await ButtonPage.GoToAsync();
             await Expect(ButtonPage.Button).ToBeDisabledAsync();
+        }
+
+        [Test]
+        public async Task UserCanEnableAndDisableTheButton()
+        {
+            await ButtonPage.GoToAsync();
 
             await ButtonPage.EnableButton();
             await Expect(ButtonPage.Button).ToBeEnabledAsync();
