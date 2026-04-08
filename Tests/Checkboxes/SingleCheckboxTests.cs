@@ -30,6 +30,20 @@ namespace QaPracticeTest.Tests.Checkboxes
         }
 
         [Test]
+        public async Task SubmitButtonIsAlwaysEnabled()
+        {
+            await CheckboxPage.GoToAsync();
+            await Expect(CheckboxPage.SubmitButton).ToBeEnabledAsync();
+
+            await CheckboxPage.CheckCheckbox();
+            await Expect(CheckboxPage.SubmitButton).ToBeEnabledAsync();
+
+            await CheckboxPage.UncheckCheckbox();
+            await Expect(CheckboxPage.SubmitButton).ToBeEnabledAsync();
+
+        }
+
+        [Test]
         public async Task UserCanSelectCheckboxAndSubmit()
         {
             await CheckboxPage.GoToAsync();
