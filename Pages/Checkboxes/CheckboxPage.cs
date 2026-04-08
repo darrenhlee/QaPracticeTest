@@ -18,6 +18,6 @@ namespace QaPracticeTest.Pages.Checkboxes
             Checkboxes = page.GetByRole(AriaRole.Checkbox);
         }
 
-        public async Task ClickButton() => await SubmitButton.ClickAsync();
+        public async Task ClickSubmit() => await SubmitButton.ClickAsync();
     }
 }
