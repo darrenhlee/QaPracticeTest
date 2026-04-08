@@ -4,6 +4,7 @@ namespace QaPracticeTest.Pages
 {
     abstract public class QaPracticePage : IQaPracticePage
     {
+        public const string BaseUrl = "https://www.qa-practice.com";
         protected readonly IPage _page;
         protected readonly string _url;
 
