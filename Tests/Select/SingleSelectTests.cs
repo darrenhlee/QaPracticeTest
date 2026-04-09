@@ -7,9 +7,16 @@ namespace QaPracticeTest.Tests.Select
     public class SingleSelectTests : PageTest
     {
         private SingleSelectPage SelectPage { get; set; }
-        
+
         [SetUp]
-        public void SetUp() => SelectPage = new SingleSelectPage(Page);
+        public async Task SetUp()
+        {
+            SelectPage = new SingleSelectPage(Page);
+            await SelectPage.GoToAsync();
+        }
+
+        [Test]
+        public async Task FieldNameIsCorrect() => await Expect(SelectPage.SelectField).ToContainTextAsync("Choose language");
 
         private static List<string> SelectOptions =>
         [
@@ -23,7 +30,6 @@ namespace QaPracticeTest.Tests.Select
         [TestCaseSource(nameof(SelectOptions))]
         public async Task AnyOptionCanBeSubmitted(string option)
         {
-            await SelectPage.GoToAsync();
             await SelectPage.SelectOption(option);
             await SelectPage.ClickSubmit();
             await Expect(SelectPage.Result).ToHaveTextAsync(option);
