@@ -12,6 +12,7 @@ namespace QaPracticeTest.Pages.Checkboxes
         {
         }
 
+        public async Task CheckCheckbox(int checkbox) => await Checkboxes.Nth(checkbox - 1).CheckAsync();
 
     }
 }

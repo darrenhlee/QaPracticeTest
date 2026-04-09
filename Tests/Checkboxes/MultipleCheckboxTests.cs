@@ -36,5 +36,33 @@ namespace QaPracticeTest.Tests.Checkboxes
                 }
             }
         }
+
+        [Test, Pairwise]
+        public async Task UserCanSelectAnyCombinationOfCheckboxes(
+            [Values] bool selectFirst,
+            [Values] bool selectSecond,
+            [Values] bool selectThird)
+        {
+            if (selectFirst) await CheckboxPage.CheckCheckbox(1);
+            if (selectSecond) await CheckboxPage.CheckCheckbox(2);
+            if (selectThird) await CheckboxPage.CheckCheckbox(3);
+            await CheckboxPage.ClickSubmit();
+
+            var expectedResult = string.Join(", ", new[]
+            {
+                selectFirst ? "one" : null,
+                selectSecond ? "two" : null,
+                selectThird ? "three" : null
+            }.Where(s => s is not null));
+
+            if (selectFirst && selectSecond && selectThird == false)
+            { 
+                await Expect(CheckboxPage.Result).ToHaveTextAsync(expectedResult); 
+            }
+            else
+            {
+                await Expect(CheckboxPage.Result).Not.ToBeVisibleAsync();
+            }
+        }
     }
 }
