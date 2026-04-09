@@ -33,7 +33,7 @@ namespace QaPracticeTest.Tests.Inputs
         public async Task InputIsRequired()
         {
             await InputPage.GoToAsync();
-            await Expect(InputPage.Input).ToHaveAttributeAsync("required", "");
+            await Expect(InputPage.Input).ToHaveAttributeAsync("required", string.Empty);
         }
 
         protected async Task InvalidTextIsRejected(InvalidInputTestCase testCase)

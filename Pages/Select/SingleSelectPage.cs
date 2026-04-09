@@ -6,7 +6,7 @@ namespace QaPracticeTest.Pages.Select
     {
         public ILocator SingleSelect => _page.Locator("#id_choose_language");
 
-        public ILocator SelectField => _page.Locator($"[for={SingleSelect.GetAttributeAsync("id").Result}]");
+        public ILocator SelectFieldName => _page.Locator($"[for={SingleSelect.GetAttributeAsync("id").Result}]");
 
         public SingleSelectPage(IPage page) : base(page, "https://www.qa-practice.com/elements/select/single_select")
         {
