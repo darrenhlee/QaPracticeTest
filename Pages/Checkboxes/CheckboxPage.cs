@@ -2,7 +2,7 @@
 
 namespace QaPracticeTest.Pages.Checkboxes
 {
-    public class CheckboxPage : ResultPage
+    public abstract class CheckboxPage : ResultPage
     {
         public ILocator Checkboxes { get; private set; }
         public ILocator SubmitButton { get; private set; }
