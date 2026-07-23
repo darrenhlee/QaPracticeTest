@@ -2,13 +2,13 @@
 
 namespace QaPracticeTest.Pages.NewTab
 {
-    public class NewTabButtonPage : NewTabPage
+    public class NewTabButtonPage : ResultPage, INewTabPage
     {
-        public NewTabButtonPage(IPage page) : base(
-            page, 
-            "https://www.qa-practice.com/elements/new_tab/button", 
-            page.GetByRole(AriaRole.Link, new() { NameString = "Click" }))
+        public ILocator NewTabLocator { get; private set; }
+
+        public NewTabButtonPage(IPage page) : base(page, "https://www.qa-practice.com/elements/new_tab/button")
         {
+            NewTabLocator = page.GetByRole(AriaRole.Link, new() { NameString = "Click" });
         }
     }
 }
