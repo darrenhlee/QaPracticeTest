@@ -4,7 +4,7 @@ namespace QaPracticeTest.Tests.Buttons
 {
     [Parallelizable(ParallelScope.Self)]
     [TestFixture]
-    public class LooksLikeABuittonTests : ButtonTestBase
+    public class LooksLikeAButtonTests : ButtonTestBase
     {
         [SetUp]
         public void SetUp()
