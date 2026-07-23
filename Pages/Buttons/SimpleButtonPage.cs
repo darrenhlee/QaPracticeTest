@@ -2,10 +2,13 @@
 
 namespace QaPracticeTest.Pages.Buttons
 {
-    public class SimpleButtonPage : ButtonPage
+    public class SimpleButtonPage : ResultPage, IButtonPage
     {
-        public SimpleButtonPage(IPage page) : base(page, "https://www.qa-practice.com/elements/button/simple", page.GetByRole(AriaRole.Button, new() { NameString = "Click" }))
+        public ILocator Button { get; private set; }
+
+        public SimpleButtonPage(IPage page) : base(page, "https://www.qa-practice.com/elements/button/simple")
         {
-        }
+            Button = page.GetByRole(AriaRole.Button, new() { NameString = "Click" });
+        }        
     }
 }

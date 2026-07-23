@@ -2,11 +2,13 @@
 
 namespace QaPracticeTest.Pages.Buttons
 {
-    public class LooksLikeAButtonPage : ButtonPage
+    public class LooksLikeAButtonPage : ResultPage, IButtonPage
     {
-        public LooksLikeAButtonPage(IPage page) : base(page, "https://www.qa-practice.com/elements/button/like_a_button", page.GetByRole(AriaRole.Link, new()
-        { NameString = "Click" }))
+        public ILocator Button { get; private set; }
+
+        public LooksLikeAButtonPage(IPage page) : base(page, "https://www.qa-practice.com/elements/button/like_a_button")
         {
+            Button = page.GetByRole(AriaRole.Link, new() { NameString = "Click" });
         }
     }
 }

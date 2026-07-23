@@ -6,6 +6,6 @@ namespace QaPracticeTest.Pages.Buttons
     {
         public ILocator Button { get; }
         public ILocator Result { get; }
-        Task ClickButton();
+        public async Task ClickButton() => await Button.ClickAsync();
     }
 }
