@@ -2,7 +2,7 @@
 {
     [Parallelizable(ParallelScope.Self)]
     [TestFixture]
-    public class NewTabLinkTests : NewTabTestBase
+    public class NewTabButtonTests : NewTabTestBase
     {
     }
 }
