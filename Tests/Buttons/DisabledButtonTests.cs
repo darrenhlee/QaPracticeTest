@@ -9,23 +9,18 @@ namespace QaPracticeTest.Tests.Buttons
         public required DisabledButtonPage ButtonPage { get; set; }
 
         [SetUp]
-        public void SetUp()
+        public async Task SetUp()
         {
             ButtonPage = new DisabledButtonPage(Page);
+            await ButtonPage.GoToAsync();
         }
 
         [Test]
-        public async Task ButtonIsDisabledByDefault()
-        {
-            await ButtonPage.GoToAsync();
-            await Expect(ButtonPage.Button).ToBeDisabledAsync();
-        }
+        public async Task ButtonIsDisabledByDefault() => await Expect(ButtonPage.Button).ToBeDisabledAsync();
 
         [Test]
         public async Task UserCanEnableAndDisableTheButton()
         {
-            await ButtonPage.GoToAsync();
-
             await ButtonPage.EnableButton();
             await Expect(ButtonPage.Button).ToBeEnabledAsync();
 
@@ -36,9 +31,9 @@ namespace QaPracticeTest.Tests.Buttons
         [Test]
         public async Task UserCanClickTheButton()
         {
-            await ButtonPage.GoToAsync();
             await ButtonPage.EnableButton();
             await Expect(ButtonPage.Button).ToBeEnabledAsync();
+
             await ButtonPage.ClickButton();
             await Expect(ButtonPage.Result).ToHaveTextAsync("Submitted");
         }

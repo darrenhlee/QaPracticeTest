@@ -5,9 +5,10 @@
     public class SimpleTextInputTests : InputTestBase
     {
         [SetUp]
-        public void SetUp()
+        public async Task SetUp()
         {
             InputPage = new Pages.Inputs.SimpleTextInputPage(Page);
+            await InputPage.GoToAsync();
         }
 
         private static IEnumerable<string> ValidInputTestCases()

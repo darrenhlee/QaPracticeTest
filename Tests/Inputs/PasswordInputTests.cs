@@ -5,9 +5,10 @@
     public class PasswordInputTests : InputTestBase
     {
         [SetUp]
-        public void SetUp()
+        public async Task SetUp()
         {
             InputPage = new Pages.Inputs.PasswordInputPage(Page);
+            await InputPage.GoToAsync();
         }
 
         private static IEnumerable<string> ValidInputTestCases()

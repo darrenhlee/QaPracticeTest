@@ -17,28 +17,21 @@ namespace QaPracticeTest.Tests.Inputs
         [Test]
         public async Task InputIsVisibleAndEnabled()
         {
-            await InputPage.GoToAsync();
             await Expect(InputPage.Input).ToBeVisibleAsync();
             await Expect(InputPage.Input).ToBeEnabledAsync();
         }
 
         protected async Task UserCanSubmitValidStrings(string text)
         {
-            await InputPage.GoToAsync();
             await InputPage.SubmitText(text);
             await Expect(Page.GetByText(text)).ToBeVisibleAsync();
         }
 
         [Test]
-        public async Task InputIsRequired()
-        {
-            await InputPage.GoToAsync();
-            await Expect(InputPage.Input).ToHaveAttributeAsync("required", string.Empty);
-        }
+        public async Task InputIsRequired() => await Expect(InputPage.Input).ToHaveAttributeAsync("required", string.Empty);
 
         protected async Task InvalidTextIsRejected(InvalidInputTestCase testCase)
         {
-            await InputPage.GoToAsync();
             await InputPage.SubmitText(testCase.Input);
             await Expect(InputPage.ErrorMessage).ToHaveTextAsync(testCase.ExpectedError);
         }
