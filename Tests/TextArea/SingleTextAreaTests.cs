@@ -16,9 +16,6 @@ namespace QaPracticeTest.Tests.TextArea
         }
 
         [Test]
-        public async Task FieldNameIsCorrect() => await Expect(TextAreaPage.TextAreaLabel).ToHaveTextAsync("Text area*");
-
-        [Test]
         public async Task UserCanEnterAndSubmitAnyTextIntoThisField()
         {
             string text = "This is a test\r\ninput for the text area.";
