@@ -10,7 +10,7 @@
             var alertBoxPage = new Pages.Alerts.AlertBoxPage(Page);
             await alertBoxPage.GoToAsync();
             await alertBoxPage.ClickButton.ClickAsync();
-            alertBoxPage.AssertDialogMessageAndAccept("I am an alert!");
+            await alertBoxPage.AssertDialogMessageAndAccept("I am an alert!");
         }
     }
 }
