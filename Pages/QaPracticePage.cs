@@ -14,6 +14,6 @@ namespace QaPracticeTest.Pages
             _url = url ?? throw new ArgumentNullException(nameof(url));
         }
 
-        public async Task GoToAsync() => await _page.GotoAsync(_url);
+        public async Task GoToAsync() => await _page.GotoAsync(_url.StartsWith(BaseUrl) ? _url : $"{BaseUrl}{_url}");
     }
 }
