@@ -5,15 +5,15 @@ namespace QaPracticeTest.Pages
     abstract public class QaPracticePage : IQaPracticePage
     {
         public const string BaseUrl = "https://www.qa-practice.com";
-        protected readonly IPage _page;
-        protected readonly string _url;
+        public IPage Page { get; private set; }
+        public string Url { get; private set; }
 
         internal QaPracticePage(IPage page, string url)
         {
-            _page = page ?? throw new ArgumentNullException(nameof(page));
-            _url = url ?? throw new ArgumentNullException(nameof(url));
+            Page = page ?? throw new ArgumentNullException(nameof(page));
+            Url = url ?? throw new ArgumentNullException(nameof(url));
         }
 
-        public async Task GoToAsync() => await _page.GotoAsync(_url.StartsWith(BaseUrl) ? _url : $"{BaseUrl}{_url}");
+        public async Task GoToAsync() => await Page.GotoAsync(Url.StartsWith(BaseUrl) ? Url : $"{BaseUrl}{Url}");
     }
 }

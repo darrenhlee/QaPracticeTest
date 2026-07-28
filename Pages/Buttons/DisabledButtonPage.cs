@@ -4,7 +4,7 @@ namespace QaPracticeTest.Pages.Buttons
 {
     public class DisabledButtonPage : ResultPage, IButtonPage
     {
-        public ILocator SelectState => _page.Locator("id=id_select_state");
+        public ILocator SelectState => Page.Locator("id=id_select_state");
         public ILocator Button { get; private set; }
 
         public DisabledButtonPage(IPage page) : base(page, "https://www.qa-practice.com/elements/button/disabled")

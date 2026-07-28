@@ -2,13 +2,8 @@
 
 namespace QaPracticeTest.Pages
 {
-    public class ResultPage : QaPracticePage
+    public class ResultPage(IPage page, string url) : QaPracticePage(page, url)
     {
-        public ILocator Result { get; private set; }
-
-        public ResultPage(IPage page, string url) : base(page, url)
-        {
-            Result = page.Locator("id=result-text");
-        }
+        public ILocator Result { get; private set; } = page.Locator("id=result-text");
     }
 }

@@ -15,20 +15,20 @@ namespace QaPracticeTest.Tests.TextArea
             await TextAreasPage.GoToAsync();
         }
 
-        private static List<string> FirstChapterInputs =
+        private static readonly List<string> FirstChapterInputs =
         [
             "This is the first input for the first chapter.",
             "Another input for\r\nthe first chapter, with carriage return and newline."
         ];
 
-        private static List<string> SecondChapterInputs =
+        private static readonly List<string> SecondChapterInputs =
         [
             "This is the first input for the second chapter.",
             "Another input for\r\nthe second chapter, with carriage return and newline.",
             string.Empty
         ];
 
-        private static List<string> ThirdChapterInputs =
+        private static readonly List<string> ThirdChapterInputs =
         [
             "This is the first input for the third chapter.",
             "Another input for\r\nthe third chapter, with carriage return and newline.",

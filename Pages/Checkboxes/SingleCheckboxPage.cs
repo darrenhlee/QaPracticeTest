@@ -9,7 +9,7 @@ namespace QaPracticeTest.Pages.Checkboxes
             get
             {
                 var id = Checkboxes.First.GetAttributeAsync("id").Result;
-                return _page.Locator($"[for={id}]");
+                return Page.Locator($"[for={id}]");
             }
         }
 
