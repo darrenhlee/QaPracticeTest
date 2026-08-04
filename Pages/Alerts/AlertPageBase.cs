@@ -2,7 +2,7 @@
 
 namespace QaPracticeTest.Pages.Alerts
 {
-    abstract public class AlertPageBase : ResultPage
+    abstract public class AlertPageBase : QaPracticePage
     {
         public ILocator ClickButton => Page.GetByRole(AriaRole.Link, new() { NameString = "Click" });
 

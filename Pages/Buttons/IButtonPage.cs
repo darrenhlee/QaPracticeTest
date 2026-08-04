@@ -4,8 +4,8 @@ namespace QaPracticeTest.Pages.Buttons
 {
     public interface IButtonPage : IQaPracticePage
     {
-        public ILocator Button { get; }
-        public ILocator Result { get; }
-        public async Task ClickButton() => await Button.ClickAsync();
+        internal ILocator Button { get; }
+        public Result Result { get; }
+        internal async Task ClickButton() => await Button.ClickAsync();
     }
 }

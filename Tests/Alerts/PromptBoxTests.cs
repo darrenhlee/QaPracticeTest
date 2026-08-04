@@ -13,7 +13,6 @@ namespace QaPracticeTest.Tests.Alerts
         {
             PromptBoxPage = new PromptBoxPage(Page);
             await PromptBoxPage.GoToAsync();
-            await PromptBoxPage.ClickButton.ClickAsync();
         }
 
         private static readonly string[] promptTexts =
@@ -26,14 +25,14 @@ namespace QaPracticeTest.Tests.Alerts
         public async Task UserCanEnterPromptTextAndAccept(string promptText)
         {
             await PromptBoxPage.AssertDialogMessageAndAccept(expectedMessage: "Please enter some text", promptText: promptText);
-            await Expect(PromptBoxPage.Result).ToHaveTextAsync(promptText == string.Empty ? "You entered nothing" : promptText);
+            await Expect(PromptBoxPage.Result.ResultText).ToHaveTextAsync(promptText == string.Empty ? "You entered nothing" : promptText);
         }
 
         [Test]
         public async Task UserCanDismissPromptBox()
         {
             await PromptBoxPage.AssertDialogMessageAndDismiss(expectedMessage: "Please enter some text");
-            await Expect(PromptBoxPage.Result).ToHaveTextAsync("You canceled the prompt");
+            await Expect(PromptBoxPage.Result.ResultText).ToHaveTextAsync("You canceled the prompt");
         }
     }
 }

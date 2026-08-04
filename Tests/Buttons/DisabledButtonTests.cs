@@ -35,7 +35,7 @@ namespace QaPracticeTest.Tests.Buttons
             await Expect(ButtonPage.Button).ToBeEnabledAsync();
 
             await ButtonPage.ClickButton();
-            await Expect(ButtonPage.Result).ToHaveTextAsync("Submitted");
+            await Expect(ButtonPage.Result.ResultText).ToHaveTextAsync("Submitted");
         }
     }
 }

@@ -19,14 +19,14 @@ namespace QaPracticeTest.Tests.Alerts
         public async Task UserCanClickButtonToTriggerConfirmationBox()
         {
             await ConfirmationBoxPage.AssertDialogMessageAndAccept(expectedMessage: "Select Ok or Cancel");
-            await Expect(ConfirmationBoxPage.Result).ToHaveTextAsync("Ok");
+            await Expect(ConfirmationBoxPage.Result.ResultText).ToHaveTextAsync("Ok");
         }
 
         [Test]
         public async Task UserCanClickButtonToTriggerConfirmationBoxAndDismiss()
         {
             await ConfirmationBoxPage.AssertDialogMessageAndDismiss(expectedMessage: "Select Ok or Cancel");
-            await Expect(ConfirmationBoxPage.Result).ToHaveTextAsync("Cancel");
+            await Expect(ConfirmationBoxPage.Result.ResultText).ToHaveTextAsync("Cancel");
         }
     }
 }
