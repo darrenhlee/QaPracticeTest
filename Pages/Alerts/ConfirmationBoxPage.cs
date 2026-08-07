@@ -1,4 +1,5 @@
 ﻿using Microsoft.Playwright;
+using QaPracticeTest.Components;
 
 namespace QaPracticeTest.Pages.Alerts
 {

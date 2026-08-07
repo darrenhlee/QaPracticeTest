@@ -4,29 +4,22 @@ namespace QaPracticeTest.Tests.Checkboxes
 {
     [Parallelizable(ParallelScope.Self)]
     [TestFixture]
-
     public class SingleCheckboxTests : PageTest
     {
         private SingleCheckboxPage CheckboxPage { get; set; }
 
         [SetUp]
-        public async void SetUp()
+        public async Task SetUp()
         {
             CheckboxPage = new SingleCheckboxPage(Page);
             await CheckboxPage.GoToAsync();
         }
 
         [Test]
-        public async Task ThereIsOnlyOneCheckbox()
-        {
-            await Expect(CheckboxPage.Checkboxes).ToHaveCountAsync(1);
-        }
+        public async Task ThereIsOnlyOneCheckbox() => await Expect(CheckboxPage.Checkboxes).ToHaveCountAsync(1);
 
         [Test]
-        public async Task LabelOfCheckboxIsCorrect()
-        {
-            await Expect(CheckboxPage.Label).ToHaveTextAsync("Select me or not");
-        }
+        public async Task LabelOfCheckboxIsCorrect() => await Expect(CheckboxPage.Label).ToHaveTextAsync("Select me or not");
 
         [Test]
         public async Task SubmitButtonIsAlwaysEnabled()
@@ -46,7 +39,7 @@ namespace QaPracticeTest.Tests.Checkboxes
         {
             await CheckboxPage.CheckCheckbox();
             await CheckboxPage.ClickSubmit();
-            await Expect(CheckboxPage.Result).ToHaveTextAsync("select me or not");
+            await Expect(CheckboxPage.Result.ResultText).ToHaveTextAsync("select me or not");
         }
 
         [Test]
@@ -54,7 +47,7 @@ namespace QaPracticeTest.Tests.Checkboxes
         {
             await CheckboxPage.UncheckCheckbox();
             await CheckboxPage.ClickSubmit();
-            await Expect(CheckboxPage.Result).Not.ToBeVisibleAsync();
+            await Expect(CheckboxPage.Result.ResultText).Not.ToBeVisibleAsync();
         }
     }
 }

@@ -57,11 +57,11 @@ namespace QaPracticeTest.Tests.Checkboxes
 
             if (selectFirst && selectSecond && selectThird == false)
             { 
-                await Expect(CheckboxPage.Result).ToHaveTextAsync(expectedResult); 
+                await Expect(CheckboxPage.Result.ResultText).ToHaveTextAsync(expectedResult); 
             }
             else
             {
-                await Expect(CheckboxPage.Result).Not.ToBeVisibleAsync();
+                await Expect(CheckboxPage.Result.ResultText).Not.ToBeVisibleAsync();
             }
         }
     }

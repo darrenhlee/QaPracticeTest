@@ -24,7 +24,7 @@ namespace QaPracticeTest.Tests.Inputs
         protected async Task UserCanSubmitValidStrings(string text)
         {
             await InputPage.SubmitText(text);
-            await Expect(Page.GetByText(text)).ToBeVisibleAsync();
+            await Expect(InputPage.Result.ResultText).ToBeVisibleAsync();
         }
 
         [Test]

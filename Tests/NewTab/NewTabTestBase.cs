@@ -10,7 +10,7 @@ namespace QaPracticeTest.Tests.NewTab
         public async Task OpenNewTab()
         {
             var newTab = new NewPage(await Context.RunAndWaitForPageAsync(NewTabPage.ClickNewTabOpener));
-            await Expect(newTab.Result).ToHaveTextAsync("I am a new page in a new tab");
+            await Expect(newTab.Result.ResultText).ToHaveTextAsync("I am a new page in a new tab");
         }
     }
 }

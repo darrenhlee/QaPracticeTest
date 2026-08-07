@@ -35,7 +35,7 @@ namespace QaPracticeTest.Tests.Select
         {
             await SelectPage.SelectOption(option);
             await SelectPage.ClickSubmit();
-            await Expect(SelectPage.Result).ToHaveTextAsync(option);
+            await Expect(SelectPage.Result.ResultText).ToHaveTextAsync(option);
         }
     }
 }

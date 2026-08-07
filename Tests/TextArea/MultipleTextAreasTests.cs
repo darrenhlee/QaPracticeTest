@@ -47,7 +47,7 @@ namespace QaPracticeTest.Tests.TextArea
             await TextAreasPage.SecondChapter.FillAsync(secondChapterInput);
             await TextAreasPage.ThirdChapter.FillAsync(thirdChapterInput);
             await TextAreasPage.SubmitButton.ClickAsync();
-            await Expect(TextAreasPage.Result).ToHaveTextAsync($"{firstChapterInput}{secondChapterInput}{thirdChapterInput}");
+            await Expect(TextAreasPage.Result.ResultText).ToHaveTextAsync($"{firstChapterInput}{secondChapterInput}{thirdChapterInput}");
         }
 
         [Test]

@@ -21,7 +21,7 @@ namespace QaPracticeTest.Tests.TextArea
             string text = "This is a test\r\ninput for the text area.";
             await TextAreaPage.TextArea.FillAsync(text);
             await TextAreaPage.SubmitButton.ClickAsync();
-            await Expect(TextAreaPage.Result).ToHaveTextAsync(text);
+            await Expect(TextAreaPage.Result.ResultText).ToHaveTextAsync(text);
         }
 
         [Test]

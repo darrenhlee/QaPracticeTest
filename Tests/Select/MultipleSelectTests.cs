@@ -70,7 +70,7 @@ namespace QaPracticeTest.Tests.Select
             await SelectPage.SelectWhen(when);
             await SelectPage.ClickSubmit();
             var expectedResult = $"to go by {how} to the {place} {when}".ToLowerInvariant();
-            await Expect(SelectPage.Result).ToHaveTextAsync(expectedResult);
+            await Expect(SelectPage.Result.ResultText).ToHaveTextAsync(expectedResult);
         }
     }
 }
