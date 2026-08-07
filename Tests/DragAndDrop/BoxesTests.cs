@@ -26,6 +26,8 @@ namespace QaPracticeTest.Tests.DragAndDrop
         public async Task BottomSquareCanOnlyBeDraggedOnce()
         {
             await BoxesPage.DraggableBox.DragToAsync(BoxesPage.DroppableBox);
+            await BoxesPage.DraggableBox.DragToAsync(Page.GetByText("Requirements"));
+            await Expect(BoxesPage.DroppableBox).ToHaveTextAsync("Dropped! Drag me");
         }
     }
 }
