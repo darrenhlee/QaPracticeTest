@@ -17,7 +17,9 @@ namespace QaPracticeTest.Tests.Iframes
         public async Task IframeIsVisible()
         {
             await Expect(IframePage.Iframe).ToBeVisibleAsync();
-            await Expect(IframePage.AlbumPage.PageContent).ToHaveTextAsync(new Regex(".+"));
+            const string expectedLeadText = "Something short and leading about the collection below—its contents, the creator, etc. " +
+                "Make it short and sweet, but not too short so folks don’t simply skip over it entirely.";
+            await Expect(IframePage.AlbumPage.PageContent).ToContainTextAsync(expectedLeadText);
         }
     }
 }
