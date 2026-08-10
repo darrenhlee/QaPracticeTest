@@ -17,7 +17,7 @@ namespace QaPracticeTest.Tests.Iframes
         public async Task IframeIsVisible()
         {
             await Expect(IframePage.Iframe).ToBeVisibleAsync();
-            await Expect(IframePage.FrameContent.Locator("div.page-content")).ToHaveTextAsync(new Regex(".+"));
+            await Expect(IframePage.AlbumPage.PageContent).ToHaveTextAsync(new Regex(".+"));
         }
     }
 }

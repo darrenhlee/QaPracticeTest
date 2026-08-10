@@ -10,5 +10,6 @@ namespace QaPracticeTest.Pages.Iframes
 
         public ILocator Iframe => Page.Locator("iframe");
         public IFrameLocator FrameContent => Page.FrameLocator("iframe");
+        public IframeAlbumPage AlbumPage => new IframeAlbumPage(FrameContent);
     }
 }
