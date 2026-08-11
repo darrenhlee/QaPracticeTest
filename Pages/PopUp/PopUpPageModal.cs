@@ -2,22 +2,17 @@
 
 namespace QaPracticeTest.Pages.PopUp
 {
-    public class PopUpPageModal
+    public class PopUpPageModal : PopUpModal
     {
-        public ILocator RootElement { get; }
         public ILocator SelectMeOrNotCheckbox => RootElement.GetByLabel("Select me or not");
-        public ILocator CloseXButton => RootElement.GetByRole(AriaRole.Button, new() { NameString = "Close" }).First;
         public ILocator SendButton => RootElement.GetByRole(AriaRole.Button, new() { NameString = "Send" });
-        public ILocator CloseButton => RootElement.GetByRole(AriaRole.Button, new() { NameString = "Close" }).Nth(1);
 
-        public PopUpPageModal(IPage page, PageGetByRoleOptions options)
+        public PopUpPageModal(IPage page, PageGetByRoleOptions options) : base(page, options)
         {
-            RootElement = page.GetByRole(AriaRole.Dialog, options);
         }
 
-        public PopUpPageModal(ILocator parentLocator, LocatorGetByRoleOptions options)
+        public PopUpPageModal(ILocator parentLocator, LocatorGetByRoleOptions options) : base(parentLocator, options)
         {
-            RootElement = parentLocator.GetByRole(AriaRole.Dialog, options);
         }
     }
 }

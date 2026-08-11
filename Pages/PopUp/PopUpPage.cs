@@ -3,9 +3,8 @@ using QaPracticeTest.Components;
 
 namespace QaPracticeTest.Pages.PopUp
 {
-    public class PopUpPage(IPage page) : QaPracticePage(page, "/elements/popup/modal")
+    public class PopUpPage(IPage page) : PopUpPageBase(page, "/elements/popup/modal")
     {
-        public ILocator LaunchPopUpButton => Page.GetByRole(AriaRole.Button, new() { NameString = "Launch Pop-Up" });
         public Result Result => new(Page);
         public PopUpPageModal PopUpModal => new(Page, new() { NameString = "I am a Pop-Up" });
     }
