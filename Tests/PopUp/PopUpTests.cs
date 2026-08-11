@@ -19,8 +19,8 @@ namespace QaPracticeTest.Tests.PopUp
         [Test]
         public async Task SendCheckboxValue([Values] bool selectValue)
         {
-            await PopUpPage.SelectMeOrNotCheckbox.SetCheckedAsync(selectValue);
-            await PopUpPage.SendButton.ClickAsync();
+            await PopUpPage.PopUpModal.SelectMeOrNotCheckbox.SetCheckedAsync(selectValue);
+            await PopUpPage.PopUpModal.SendButton.ClickAsync();
             var expectedResult = $"Selected checkboxes:{Environment.NewLine}{(selectValue ? "select me or not" : "None")}";
             await Expect(PopUpPage.Result.ResultRoot).ToHaveTextAsync(expectedResult);
         }
@@ -28,16 +28,16 @@ namespace QaPracticeTest.Tests.PopUp
         [Test]
         public async Task CheckboxValueIsNotSentWhenModalCloseButtonIsClicked([Values] bool selectValue)
         {
-            await PopUpPage.SelectMeOrNotCheckbox.SetCheckedAsync(selectValue);
-            await PopUpPage.CloseButton.ClickAsync();
+            await PopUpPage.PopUpModal.SelectMeOrNotCheckbox.SetCheckedAsync(selectValue);
+            await PopUpPage.PopUpModal.CloseButton.ClickAsync();
             await Expect(PopUpPage.Result.ResultRoot).Not.ToBeVisibleAsync();
         }
 
         [Test]
         public async Task CheckboxValueIsNotSentWhenModalCloseXButtonIsClicked([Values] bool selectValue)
         {
-            await PopUpPage.SelectMeOrNotCheckbox.SetCheckedAsync(selectValue);
-            await PopUpPage.CloseXButton.ClickAsync();
+            await PopUpPage.PopUpModal.SelectMeOrNotCheckbox.SetCheckedAsync(selectValue);
+            await PopUpPage.PopUpModal.CloseXButton.ClickAsync();
             await Expect(PopUpPage.Result.ResultRoot).Not.ToBeVisibleAsync();
         }
     }
