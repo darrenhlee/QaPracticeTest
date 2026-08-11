@@ -7,6 +7,6 @@ namespace QaPracticeTest.Pages.PopUp
     {
         public ILocator LaunchPopUpButton => Page.GetByRole(AriaRole.Button, new() { NameString = "Launch Pop-Up" });
         public Result Result => new(Page);
-        public PopUpPageModal PopUpModal => new(Page, "I am a Pop-Up");
+        public PopUpPageModal PopUpModal => new(Page, new() { NameString = "I am a Pop-Up" });
     }
 }

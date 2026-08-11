@@ -10,14 +10,14 @@ namespace QaPracticeTest.Pages.PopUp
         public ILocator SendButton => RootElement.GetByRole(AriaRole.Button, new() { NameString = "Send" });
         public ILocator CloseButton => RootElement.GetByRole(AriaRole.Button, new() { NameString = "Close" }).Nth(1);
 
-        public PopUpPageModal(IPage page, string nameString)
+        public PopUpPageModal(IPage page, PageGetByRoleOptions options)
         {
-            RootElement = page.GetByRole(AriaRole.Dialog, new() { NameString = nameString });
+            RootElement = page.GetByRole(AriaRole.Dialog, options);
         }
 
-        public PopUpPageModal(ILocator parentLocator, string nameString)
+        public PopUpPageModal(ILocator parentLocator, LocatorGetByRoleOptions options)
         {
-            RootElement = parentLocator.GetByRole(AriaRole.Dialog, new() { NameString = nameString });
+            RootElement = parentLocator.GetByRole(AriaRole.Dialog, options);
         }
     }
 }
