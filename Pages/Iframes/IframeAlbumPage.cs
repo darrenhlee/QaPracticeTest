@@ -2,14 +2,9 @@
 
 namespace QaPracticeTest.Pages.Iframes
 {
-    public class IframeAlbumPage
+    public class IframeAlbumPage(IFrameLocator frameLocator)
     {
-        public IFrameLocator FrameLocator { get; }
+        public IFrameLocator FrameLocator { get; } = frameLocator;
         public ILocator PageContent => FrameLocator.Locator("div.page-content");
-
-        public IframeAlbumPage(IFrameLocator frameLocator)
-        {
-            FrameLocator = frameLocator;
-        }
     }
 }
