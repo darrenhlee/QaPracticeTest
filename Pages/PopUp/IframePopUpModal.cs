@@ -1,8 +1,9 @@
 ﻿using Microsoft.Playwright;
+using QaPracticeTest.Components;
 
 namespace QaPracticeTest.Pages.PopUp
 {
-    public class IframePopUpModal : PopUpModal
+    public class IframePopUpModal : PopUpModalBase
     {
         public IFrameLocator Iframe => RootElement.FrameLocator("iframe");
         public ILocator Title => Iframe.GetByRole(AriaRole.Heading);

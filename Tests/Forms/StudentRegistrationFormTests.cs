@@ -1,9 +1,4 @@
 ﻿using QaPracticeTest.Pages.Forms;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace QaPracticeTest.Tests.Forms
 {
@@ -23,6 +18,11 @@ namespace QaPracticeTest.Tests.Forms
         public async Task RequiredFieldsAreRequired()
         {
             await Expect(StudentRegistrationFormPage.FirstNameInput).ToBeRequired();
+            await Expect(StudentRegistrationFormPage.LastNameInput).ToBeRequired();
+            await Expect(StudentRegistrationFormPage.MaleGenderInput).ToBeRequired();
+            await Expect(StudentRegistrationFormPage.FemaleGenderInput).ToBeRequired();
+            await Expect(StudentRegistrationFormPage.OtherGenderInput).ToBeRequired();
+            await Expect(StudentRegistrationFormPage.MobileInput).ToBeRequired();
         }
     }
 }
