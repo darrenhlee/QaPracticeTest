@@ -15,11 +15,13 @@ namespace QaPracticeTest.Tests.PopUp
             await IframePopUpPage.LaunchPopUpButton.ClickAsync();
         }
 
+        const string expectedCopyText = "I am the text you want to copy";
+
         public static readonly List<object> UserCanSubmitTextCopiedFromModalTestCases =
         [
             new object[] 
             {
-                "I am the text you want to copy", 
+                expectedCopyText, 
                 "Correct!" 
             },
             new object[] 
@@ -33,8 +35,6 @@ namespace QaPracticeTest.Tests.PopUp
         public async Task UserCanSubmitTextCopiedFromModal(string inputText, string expectedResultText)
         {
             await Expect(IframePopUpPage.Modal.Title).ToHaveTextAsync("Iframe page title");
-
-            const string expectedCopyText = "I am the text you want to copy";
             await Expect(IframePopUpPage.Modal.TextToCopy).ToHaveTextAsync(expectedCopyText);
 
             await IframePopUpPage.Modal.CheckButton.ClickAsync();
