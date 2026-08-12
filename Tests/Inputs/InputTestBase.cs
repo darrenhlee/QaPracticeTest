@@ -28,7 +28,7 @@ namespace QaPracticeTest.Tests.Inputs
         }
 
         [Test]
-        public async Task InputIsRequired() => await Expect(InputPage.Input).ToHaveAttributeAsync("required", string.Empty);
+        public async Task InputIsRequired() => await Expect(InputPage.Input).ToBeRequired();
 
         protected async Task InvalidTextIsRejected(InvalidInputTestCase testCase)
         {

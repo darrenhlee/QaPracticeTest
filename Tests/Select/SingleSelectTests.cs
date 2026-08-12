@@ -19,7 +19,7 @@ namespace QaPracticeTest.Tests.Select
         public async Task FieldNameIsCorrect() => await Expect(SelectPage.SelectFieldName).ToContainTextAsync("Choose language");
 
         [Test]
-        public async Task FieldIsRequired() => await Expect(SelectPage.SingleSelect).ToHaveAttributeAsync("required", string.Empty);
+        public async Task FieldIsRequired() => await Expect(SelectPage.SingleSelect).ToBeRequired();
 
         private static List<string> SelectOptions =>
         [

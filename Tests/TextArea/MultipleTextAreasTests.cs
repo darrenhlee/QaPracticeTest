@@ -4,7 +4,7 @@ namespace QaPracticeTest.Tests.TextArea
 {
     [Parallelizable(ParallelScope.Self)]
     [TestFixture]
-    public class MultipleTextAreasTests : QaPracticeTestBase
+    public class MultipleTextAreasTests : PageTest
     {
         private MultipleTextAreasPage TextAreasPage { get; set; }
 
@@ -41,8 +41,9 @@ namespace QaPracticeTest.Tests.TextArea
             [ValueSource(nameof(SecondChapterInputs))] string secondChapterInput,
             [ValueSource(nameof(ThirdChapterInputs))] string thirdChapterInput)
         {
-            await ExpectFieldNotToBeRequired(TextAreasPage.SecondChapter);
-            await ExpectFieldNotToBeRequired(TextAreasPage.ThirdChapter);
+            await Expect(TextAreasPage.SecondChapter).Not.ToBeRequired();
+            await Expect(TextAreasPage.ThirdChapter).Not.ToBeRequired();
+
             await TextAreasPage.FirstChapter.FillAsync(firstChapterInput);
             await TextAreasPage.SecondChapter.FillAsync(secondChapterInput);
             await TextAreasPage.ThirdChapter.FillAsync(thirdChapterInput);
@@ -51,6 +52,6 @@ namespace QaPracticeTest.Tests.TextArea
         }
 
         [Test]
-        public async Task FirstChapterIsRequired() => await ExpectFieldToBeRequired(TextAreasPage.FirstChapter);
+        public async Task FirstChapterIsRequired() => await Expect(TextAreasPage.FirstChapter).ToBeRequired();
     }
 }

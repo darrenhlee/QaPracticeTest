@@ -25,6 +25,6 @@ namespace QaPracticeTest.Tests.TextArea
         }
 
         [Test]
-        public async Task FieldIsRequired() => await Expect(TextAreaPage.TextArea).ToHaveAttributeAsync("required", string.Empty);
+        public async Task FieldIsRequired() => await Expect(TextAreaPage.TextArea).ToBeRequired();
     }
 }

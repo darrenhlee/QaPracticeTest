@@ -30,9 +30,9 @@ namespace QaPracticeTest.Tests.Select
             if (!howIsBlank) await SelectPage.SelectHow(1);
             if (!whenIsBlank) await SelectPage.SelectWhen(1);
 
-            await Expect(SelectPage.PlaceSelect).ToHaveAttributeAsync("required", string.Empty);
-            await Expect(SelectPage.HowSelect).ToHaveAttributeAsync("required", string.Empty);
-            await Expect(SelectPage.WhenSelect).ToHaveAttributeAsync("required", string.Empty);
+            await Expect(SelectPage.PlaceSelect).ToBeRequired();
+            await Expect(SelectPage.HowSelect).ToBeRequired();
+            await Expect(SelectPage.WhenSelect).ToBeRequired();
         }
 
         private static List<string> PlaceValues =>
