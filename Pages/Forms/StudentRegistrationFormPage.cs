@@ -11,7 +11,7 @@ namespace QaPracticeTest.Pages.Forms
         public ILocator MobileInput => Page.GetByLabel("Mobile (10 Digits)*");
 
         // Gender
-        public ILocator MaleGenderInput => Page.GetByLabel("Male");
+        public ILocator MaleGenderInput => Page.GetByLabel("Male", new() { Exact = true });
         public ILocator FemaleGenderInput => Page.GetByLabel("Female");
         public ILocator OtherGenderInput => Page.GetByLabel("Other");
 
@@ -27,7 +27,7 @@ namespace QaPracticeTest.Pages.Forms
         public ILocator MusicCheckbox => Page.GetByLabel("Music");
 
         // Profile Picture
-        public ILocator PictureInput => Page.GetByLabel("Select a file");
+        public ILocator PictureInput => Page.GetByLabel("Picture");
 
         // Current Address
         public ILocator CurrentAddressTextarea => Page.GetByLabel("Current Address");
