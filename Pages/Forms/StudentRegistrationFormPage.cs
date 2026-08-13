@@ -1,4 +1,5 @@
 ﻿using Microsoft.Playwright;
+using QaPracticeTest.Tests.Forms;
 
 namespace QaPracticeTest.Pages.Forms
 {
@@ -16,10 +17,10 @@ namespace QaPracticeTest.Pages.Forms
         public ILocator OtherGenderInput => Page.GetByLabel("Other");
 
         // Date of Birth
-        public ILocator DateOfBirthInput => Page.GetByLabel("Date of Birth*");
+        public ILocator DateOfBirthInput => Page.GetByLabel("Date of Birth");
 
         // Subject
-        public ILocator SubjectInput => Page.GetByLabel("Subject*");
+        public ILocator SubjectInput => Page.GetByLabel("Subject");
 
         // Hobbies
         public ILocator SportsCheckbox => Page.GetByLabel("Sports");
@@ -44,6 +45,68 @@ namespace QaPracticeTest.Pages.Forms
 
         public StudentRegistrationFormPage(IPage page) : base(page, "/forms/practice-form")
         {
+        }
+
+        public async Task SetGender(Gender gender)
+        {
+            switch (gender)
+            {
+                case Gender.Male:
+                    await MaleGenderInput.CheckAsync();
+                    break;
+                case Gender.Female:
+                    await FemaleGenderInput.CheckAsync();
+                    break;
+                case Gender.Other:
+                    await OtherGenderInput.CheckAsync();
+                    break;
+            }
+        }
+
+        public async Task SetDateOfBirth(DateTime dateTime) => await DateOfBirthInput.FillAsync(dateTime.ToString("dd MMM yyyy"));
+
+        public async Task SetSubjects(IEnumerable<string> subjects)
+        {
+            foreach (var subject in subjects)
+            {
+                await SubjectInput.FillAsync(subject);
+                await SubjectInput.PressAsync("Enter");
+            }
+        }
+
+        public async Task SetHobbies(StudentHobbies hobbies)
+        {
+            await SportsCheckbox.SetCheckedAsync(hobbies.Sports);
+            await ReadingCheckbox.SetCheckedAsync(hobbies.Reading);
+            await MusicCheckbox.SetCheckedAsync(hobbies.Music);
+        }
+
+        public async Task UploadPicture(string filePath) 
+        {
+            if (!string.IsNullOrEmpty(filePath))
+            {
+                var fileChooser = await Page.RunAndWaitForFileChooserAsync(async () =>
+                {
+                    await PictureInput.ClickAsync();
+                });
+                await fileChooser.SetFilesAsync(filePath);
+            }
+        }
+
+        public async Task SelectState(string state)
+        {
+            if (!string.IsNullOrEmpty(state))
+            {
+                await StateDropdown.SelectOptionAsync(state);
+            }
+        }
+
+        internal async Task SelectCity(string city)
+        {
+            if (!string.IsNullOrEmpty(city))
+            {
+                await CityDropdown.SelectOptionAsync(city);
+            }
         }
     }
 }
