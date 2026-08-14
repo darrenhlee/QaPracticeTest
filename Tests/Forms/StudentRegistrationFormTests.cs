@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework.Internal;
 using QaPracticeTest.Pages.Forms;
+using QaPracticeTest.TestData.Forms.StudentRegistrationForm;
 
 namespace QaPracticeTest.Tests.Forms
 {
@@ -30,46 +31,11 @@ namespace QaPracticeTest.Tests.Forms
             await Expect(StudentRegistrationFormPage.MusicCheckbox).Not.ToBeRequired();
             await Expect(StudentRegistrationFormPage.PictureInput).Not.ToBeRequired();
             await Expect(StudentRegistrationFormPage.CurrentAddressTextarea).Not.ToBeRequired();
-            await Expect(StudentRegistrationFormPage.StateDropdown).Not.ToBeRequired();
-            await Expect(StudentRegistrationFormPage.CityDropdown).Not.ToBeRequired();
+            await Expect(StudentRegistrationFormPage.StateSelect).Not.ToBeRequired();
+            await Expect(StudentRegistrationFormPage.CitySelect).Not.ToBeRequired();
         }
 
-        private static IEnumerable<TestCaseData> ValidFormData()
-        {
-            yield return new TestCaseData(new StudentRegistrationFormData()
-            {
-                FirstName = "John",
-                LastName = "Doe",
-                Email = string.Empty,
-                Mobile = "1234567890",
-                Gender = Gender.Male,
-                DateOfBirth = new DateTime(2000, 1, 1),
-                Subjects = [],
-                Hobbies = new StudentHobbies(),
-                PictureFilePath = string.Empty,
-                CurrentAddress = string.Empty,
-                State = string.Empty,
-                City = string.Empty
-            });
-
-            yield return new TestCaseData(new StudentRegistrationFormData()
-            {
-                FirstName = "Jane",
-                LastName = "Doe",
-                Email = "jane.doe@example.com",
-                Mobile = "1234567890",
-                Gender = Gender.Female,
-                DateOfBirth = DateTime.Today,
-                Subjects = ["Maths", "Physics"],
-                Hobbies = new StudentHobbies() { Sports = true, Reading = true, Music = true },
-                PictureFilePath = string.Empty,
-                CurrentAddress = string.Empty,
-                State = string.Empty,
-                City = string.Empty
-            }).Ignore("Not complete.");
-        }
-
-        [TestCaseSource(nameof(ValidFormData))]
+        [TestCaseSource(typeof(StudentRegistrationFormTestData), nameof(StudentRegistrationFormTestData.ValidFormData))]
         public async Task FormCanBeSubmittedWithValidData(StudentRegistrationFormData formData)
         {
             await StudentRegistrationFormPage.FirstNameInput.FillAsync(formData.FirstName);
@@ -85,29 +51,17 @@ namespace QaPracticeTest.Tests.Forms
             await StudentRegistrationFormPage.SelectState(formData.State);
             await StudentRegistrationFormPage.SelectCity(formData.City);
             await StudentRegistrationFormPage.SubmitButton.ClickAsync();
+
+            await Expect(StudentRegistrationFormPage.ResultsModal.RootElement).ToHaveTextAsync(new Regex($"Student Name(\\r\\n?|\\n)\\s+{formData.FirstName} {formData.LastName}"));
+            await Expect(StudentRegistrationFormPage.ResultsModal.RootElement).ToHaveTextAsync(new Regex($"Student Email(\\r\\n?|\\n)\\s+{formData.Email}"));
+            await Expect(StudentRegistrationFormPage.ResultsModal.RootElement).ToHaveTextAsync(new Regex($"Gender(\\r\\n?|\\n)\\s+{formData.Gender}"));
+            await Expect(StudentRegistrationFormPage.ResultsModal.RootElement).ToHaveTextAsync(new Regex($"Mobile(\\r\\n?|\\n)\\s+{formData.Mobile}"));
+            await Expect(StudentRegistrationFormPage.ResultsModal.RootElement).ToHaveTextAsync(new Regex($"Date of Birth(\\r\\n?|\\n)\\s+{formData.DateOfBirth:yyyy-MM-dd}"));
+            await Expect(StudentRegistrationFormPage.ResultsModal.RootElement).ToHaveTextAsync(new Regex($"Subjects(\\r\\n?|\\n)\\s+{string.Join(", ", formData.Subjects)}"));
+            await Expect(StudentRegistrationFormPage.ResultsModal.RootElement).ToHaveTextAsync(new Regex($"Hobbies(\\r\\n?|\\n)\\s+{formData.Hobbies}"));
+            await Expect(StudentRegistrationFormPage.ResultsModal.RootElement).ToHaveTextAsync(new Regex($"Picture(\\r\\n?|\\n)\\s+{Path.GetFileName(formData.PictureFilePath)}"));
+            await Expect(StudentRegistrationFormPage.ResultsModal.RootElement).ToHaveTextAsync(new Regex($"Address(\\r\\n?|\\n)\\s+{formData.CurrentAddress}"));
+            await Expect(StudentRegistrationFormPage.ResultsModal.RootElement).ToHaveTextAsync(new Regex($"State and City(\\r\\n?|\\n)\\s+{formData.State}"));
         }
-    }
-
-    public class StudentRegistrationFormData : TestCaseParameters
-    {
-        public required string FirstName { get; set; }
-        public required string LastName { get; set; }
-        public required string Email { get; set; }
-        public required string Mobile { get; set; }
-        public required Gender Gender { get; set; }
-        public required DateTime DateOfBirth { get; set; }
-        public required string[] Subjects { get; set; }
-        public required StudentHobbies Hobbies { get; set; }
-        public required string PictureFilePath { get; set; }
-        public required string CurrentAddress { get; set; }
-        public required string State { get; set; }
-        public required string City { get; set; }
-    }
-
-    public class StudentHobbies
-    {
-        public bool Sports { get; set; } = false;
-        public bool Reading { get; set; } = false;
-        public bool Music { get; set; } = false;
     }
 }

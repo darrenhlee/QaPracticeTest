@@ -1,4 +1,5 @@
 ﻿using Microsoft.Playwright;
+using QaPracticeTest.TestData.Forms.StudentRegistrationForm;
 using QaPracticeTest.Tests.Forms;
 
 namespace QaPracticeTest.Pages.Forms
@@ -20,7 +21,7 @@ namespace QaPracticeTest.Pages.Forms
         public ILocator DateOfBirthInput => Page.GetByLabel("Date of Birth");
 
         // Subject
-        public ILocator SubjectInput => Page.GetByLabel("Subject");
+        public ILocator SubjectInput => Page.GetByPlaceholder("Type to search subjects...");
 
         // Hobbies
         public ILocator SportsCheckbox => Page.GetByLabel("Sports");
@@ -33,15 +34,18 @@ namespace QaPracticeTest.Pages.Forms
         // Current Address
         public ILocator CurrentAddressTextarea => Page.GetByLabel("Current Address");
 
-        // State and City
-        public ILocator StateDropdown => Page.GetByLabel("State");
-        public ILocator CityDropdown => Page.GetByLabel("City");
+        public ILocator StateSelect => Page.GetByLabel("state");
+        public ILocator CitySelect => Page.GetByLabel("city");
+
+        public ILocator CustomDropdownMenu => Page.Locator("div.custom-dropdown-menu.show");
 
         // Submit Button
         public ILocator SubmitButton => Page.GetByRole(AriaRole.Button, new() { NameString = "Submit" });
 
         // Result Message
         public ILocator SuccessMessage => Page.Locator(".success-message");
+
+        public StudentRegistrationFormResultsModal ResultsModal => new(Page);
 
         public StudentRegistrationFormPage(IPage page) : base(page, "/forms/practice-form")
         {
@@ -85,10 +89,7 @@ namespace QaPracticeTest.Pages.Forms
         {
             if (!string.IsNullOrEmpty(filePath))
             {
-                var fileChooser = await Page.RunAndWaitForFileChooserAsync(async () =>
-                {
-                    await PictureInput.ClickAsync();
-                });
+                var fileChooser = await Page.RunAndWaitForFileChooserAsync(async () => await PictureInput.ClickAsync());
                 await fileChooser.SetFilesAsync(filePath);
             }
         }
@@ -97,7 +98,8 @@ namespace QaPracticeTest.Pages.Forms
         {
             if (!string.IsNullOrEmpty(state))
             {
-                await StateDropdown.SelectOptionAsync(state);
+                await Page.Locator("#div_id_state > div.custom-dropdown").ClickAsync();
+                await CustomDropdownMenu.GetByText(state).ClickAsync();
             }
         }
 
@@ -105,7 +107,8 @@ namespace QaPracticeTest.Pages.Forms
         {
             if (!string.IsNullOrEmpty(city))
             {
-                await CityDropdown.SelectOptionAsync(city);
+                await Page.Locator("#div_id_city > div.custom-dropdown").ClickAsync();
+                await CustomDropdownMenu.GetByText(city).ClickAsync();
             }
         }
     }
