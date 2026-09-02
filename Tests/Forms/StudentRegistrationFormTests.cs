@@ -63,16 +63,14 @@ namespace QaPracticeTest.Tests.Forms
         public async Task MobileRequiresTenDigits(StudentRegistrationFormData formData)
         {
             await StudentRegistrationFormPage.FillForm(formData, false);
-            if (formData.Mobile.Length <= 10)
-            {
-                await Expect(StudentRegistrationFormPage.MobileInput).ToHaveValueAsync(formData.Mobile);
-            }
+            var expectedMobileInput = formData.Mobile.Length > 10 ? formData.Mobile[..10] : formData.Mobile;
+            await Expect(StudentRegistrationFormPage.MobileInput).ToHaveValueAsync(expectedMobileInput);
             await StudentRegistrationFormPage.SubmitButton.ClickAsync();
             await Expect(StudentRegistrationFormPage.ResultsModal.RootElement).Not.ToBeVisibleAsync();
             if (formData.Mobile.Length <= 10)
             {
                 await Expect(StudentRegistrationFormPage.MobileInvalidErrorMessage).ToHaveTextAsync("Mobile number must be exactly 10 digits");
-            }            
+            }
         }
     }
 }

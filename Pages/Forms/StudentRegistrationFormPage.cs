@@ -107,7 +107,7 @@ namespace QaPracticeTest.Pages.Forms
             }
         }
 
-        public async Task FillForm(StudentRegistrationFormData formData, bool submit = true)
+        public async Task FillForm(StudentRegistrationFormData formData, bool clickSubmit = true)
         {
             await FirstNameInput.FillAsync(formData.FirstName);
             await LastNameInput.FillAsync(formData.LastName);
@@ -122,7 +122,7 @@ namespace QaPracticeTest.Pages.Forms
             await SelectState(formData.State);
             await SelectCity(formData.City);
 
-            if (submit)
+            if (clickSubmit)
             {
                 await SubmitButton.ClickAsync();
             }
