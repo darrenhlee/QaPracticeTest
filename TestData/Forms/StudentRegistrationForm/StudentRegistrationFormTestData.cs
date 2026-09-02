@@ -1,6 +1,4 @@
-﻿using QaPracticeTest.Tests.Forms;
-
-namespace QaPracticeTest.TestData.Forms.StudentRegistrationForm
+﻿namespace QaPracticeTest.TestData.Forms.StudentRegistrationForm
 {
     internal static class StudentRegistrationFormTestData
     {
@@ -39,6 +37,88 @@ namespace QaPracticeTest.TestData.Forms.StudentRegistrationForm
                 State = "NCR",
                 City = "Delhi"
             });
+        }
+
+        internal static IEnumerable<TestCaseData> InvalidEmailTestCases
+        {
+            get
+            {
+                yield return new TestCaseData(new StudentRegistrationFormData()
+                {
+                    FirstName = "Plain Address",
+                    LastName = "Invalid Email",
+                    Email = "plainaddress"
+                });
+
+                yield return new TestCaseData(new StudentRegistrationFormData()
+                {
+                    FirstName = "Missing Username",
+                    LastName = "Invalid Email",
+                    Email = "@missingusername.com"
+                });
+
+                yield return new TestCaseData(new StudentRegistrationFormData()
+                {
+                    FirstName = "Missing Domain",
+                    LastName = "Invalid Email",
+                    Email = "username@.com"
+                });
+
+                yield return new TestCaseData(new StudentRegistrationFormData()
+                {
+                    FirstName = "Trailing Dot",
+                    LastName = "Invalid Email",
+                    Email = "username@.com."
+                });
+
+                yield return new TestCaseData(new StudentRegistrationFormData()
+                {
+                    FirstName = "Consecutive Dots",
+                    LastName = "Invalid Email",
+                    Email = "username@domain..com"
+                });
+            }
+        }
+
+        internal static IEnumerable<TestCaseData> InvalidMobileTestCases
+        {
+            get
+            {
+                yield return new TestCaseData(new StudentRegistrationFormData()
+                {
+                    FirstName = "Nine Digits",
+                    LastName = "Invalid Mobile",
+                    Mobile = "123456789"
+                });
+
+                yield return new TestCaseData(new StudentRegistrationFormData()
+                {
+                    FirstName = "Eleven Digits",
+                    LastName = "Invalid Mobile",
+                    Mobile = "12345678901"
+                });
+
+                yield return new TestCaseData(new StudentRegistrationFormData()
+                {
+                    FirstName = "Contains Hyphens",
+                    LastName = "Invalid Mobile",
+                    Mobile = "1111111-11"
+                });
+
+                yield return new TestCaseData(new StudentRegistrationFormData()
+                {
+                    FirstName = "Contains Spaces",
+                    LastName = "Invalid Mobile",
+                    Mobile = "1111111 11"
+                });
+
+                yield return new TestCaseData(new StudentRegistrationFormData()
+                {
+                    FirstName = "Letters Instead",
+                    LastName = "Invalid Mobile",
+                    Mobile = "abcdefghij"
+                });
+            }
         }
     }
 }

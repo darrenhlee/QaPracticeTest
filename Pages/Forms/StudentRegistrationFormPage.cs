@@ -1,16 +1,15 @@
 ﻿using Microsoft.Playwright;
 using QaPracticeTest.TestData.Forms.StudentRegistrationForm;
-using QaPracticeTest.Tests.Forms;
 
 namespace QaPracticeTest.Pages.Forms
 {
-    public class StudentRegistrationFormPage : QaPracticePage
+    public class StudentRegistrationFormPage(IPage page) : QaPracticePage(page, "/forms/practice-form")
     {
         // Basic Information
         public ILocator FirstNameInput => Page.GetByLabel("First Name*");
         public ILocator LastNameInput => Page.GetByLabel("Last Name*");
         public ILocator EmailInput => Page.GetByLabel("Email");
-        public ILocator MobileInput => Page.GetByLabel("Mobile (10 Digits)*");
+        public ILocator MobileInput => Page.Locator("id=userNumber");
 
         // Gender
         public ILocator MaleGenderInput => Page.GetByLabel("Male", new() { Exact = true });
@@ -42,14 +41,10 @@ namespace QaPracticeTest.Pages.Forms
         // Submit Button
         public ILocator SubmitButton => Page.GetByRole(AriaRole.Button, new() { NameString = "Submit" });
 
-        // Result Message
-        public ILocator SuccessMessage => Page.Locator(".success-message");
+        // Mobile invalid error message
+        public ILocator MobileInvalidErrorMessage => Page.Locator("#error_1_id_mobile > strong");
 
         public StudentRegistrationFormResultsModal ResultsModal => new(Page);
-
-        public StudentRegistrationFormPage(IPage page) : base(page, "/forms/practice-form")
-        {
-        }
 
         public async Task SetGender(Gender gender)
         {
@@ -85,7 +80,7 @@ namespace QaPracticeTest.Pages.Forms
             await MusicCheckbox.SetCheckedAsync(hobbies.Music);
         }
 
-        public async Task UploadPicture(string filePath) 
+        public async Task UploadPicture(string filePath)
         {
             if (!string.IsNullOrEmpty(filePath))
             {
@@ -109,6 +104,27 @@ namespace QaPracticeTest.Pages.Forms
             {
                 await Page.Locator("#div_id_city > div.custom-dropdown").ClickAsync();
                 await CustomDropdownMenu.GetByText(city).ClickAsync();
+            }
+        }
+
+        public async Task FillForm(StudentRegistrationFormData formData, bool submit = true)
+        {
+            await FirstNameInput.FillAsync(formData.FirstName);
+            await LastNameInput.FillAsync(formData.LastName);
+            await EmailInput.FillAsync(formData.Email);
+            await SetGender(formData.Gender);
+            await MobileInput.FillAsync(formData.Mobile);
+            await SetDateOfBirth(formData.DateOfBirth);
+            await SetSubjects(formData.Subjects);
+            await SetHobbies(formData.Hobbies);
+            await UploadPicture(formData.PictureFilePath);
+            await CurrentAddressTextarea.FillAsync(formData.CurrentAddress);
+            await SelectState(formData.State);
+            await SelectCity(formData.City);
+
+            if (submit)
+            {
+                await SubmitButton.ClickAsync();
             }
         }
     }

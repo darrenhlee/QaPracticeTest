@@ -38,19 +38,7 @@ namespace QaPracticeTest.Tests.Forms
         [TestCaseSource(typeof(StudentRegistrationFormTestData), nameof(StudentRegistrationFormTestData.ValidFormData))]
         public async Task FormCanBeSubmittedWithValidData(StudentRegistrationFormData formData)
         {
-            await StudentRegistrationFormPage.FirstNameInput.FillAsync(formData.FirstName);
-            await StudentRegistrationFormPage.LastNameInput.FillAsync(formData.LastName);
-            await StudentRegistrationFormPage.EmailInput.FillAsync(formData.Email);
-            await StudentRegistrationFormPage.SetGender(formData.Gender);
-            await StudentRegistrationFormPage.MobileInput.FillAsync(formData.Mobile);
-            await StudentRegistrationFormPage.SetDateOfBirth(formData.DateOfBirth);
-            await StudentRegistrationFormPage.SetSubjects(formData.Subjects);
-            await StudentRegistrationFormPage.SetHobbies(formData.Hobbies);
-            await StudentRegistrationFormPage.UploadPicture(formData.PictureFilePath);
-            await StudentRegistrationFormPage.CurrentAddressTextarea.FillAsync(formData.CurrentAddress);
-            await StudentRegistrationFormPage.SelectState(formData.State);
-            await StudentRegistrationFormPage.SelectCity(formData.City);
-            await StudentRegistrationFormPage.SubmitButton.ClickAsync();
+            await StudentRegistrationFormPage.FillForm(formData);
 
             await Expect(StudentRegistrationFormPage.ResultsModal.RootElement).ToHaveTextAsync(new Regex($"Student Name(\\r\\n?|\\n)\\s+{formData.FirstName} {formData.LastName}"));
             await Expect(StudentRegistrationFormPage.ResultsModal.RootElement).ToHaveTextAsync(new Regex($"Student Email(\\r\\n?|\\n)\\s+{formData.Email}"));
@@ -62,6 +50,29 @@ namespace QaPracticeTest.Tests.Forms
             await Expect(StudentRegistrationFormPage.ResultsModal.RootElement).ToHaveTextAsync(new Regex($"Picture(\\r\\n?|\\n)\\s+{Path.GetFileName(formData.PictureFilePath)}"));
             await Expect(StudentRegistrationFormPage.ResultsModal.RootElement).ToHaveTextAsync(new Regex($"Address(\\r\\n?|\\n)\\s+{formData.CurrentAddress}"));
             await Expect(StudentRegistrationFormPage.ResultsModal.RootElement).ToHaveTextAsync(new Regex($"State and City(\\r\\n?|\\n)\\s+{formData.State}"));
+        }
+
+        [TestCaseSource(typeof(StudentRegistrationFormTestData), nameof(StudentRegistrationFormTestData.InvalidEmailTestCases))]
+        public async Task EmailRequiresCorrectFormat(StudentRegistrationFormData formData)
+        {
+            await StudentRegistrationFormPage.FillForm(formData);
+            await Expect(StudentRegistrationFormPage.ResultsModal.RootElement).Not.ToBeVisibleAsync();
+        }
+
+        [TestCaseSource(typeof(StudentRegistrationFormTestData), nameof(StudentRegistrationFormTestData.InvalidMobileTestCases))]
+        public async Task MobileRequiresTenDigits(StudentRegistrationFormData formData)
+        {
+            await StudentRegistrationFormPage.FillForm(formData, false);
+            if (formData.Mobile.Length <= 10)
+            {
+                await Expect(StudentRegistrationFormPage.MobileInput).ToHaveValueAsync(formData.Mobile);
+            }
+            await StudentRegistrationFormPage.SubmitButton.ClickAsync();
+            await Expect(StudentRegistrationFormPage.ResultsModal.RootElement).Not.ToBeVisibleAsync();
+            if (formData.Mobile.Length <= 10)
+            {
+                await Expect(StudentRegistrationFormPage.MobileInvalidErrorMessage).ToHaveTextAsync("Mobile number must be exactly 10 digits");
+            }            
         }
     }
 }
